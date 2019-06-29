@@ -73,9 +73,28 @@ bool PointInsideRegion(const PointI& clickPoint, const RegionF &region );
 
 bool PointInsideCircle(const PointF& clickPoint, const PointF& circleCentre, const float& radius );
 
-// generic functions
+
+// Range of values - used by Random
+struct Range
+{
+	Range(int lo, int hi) : mLow(lo), mHigh(hi) {}
+	Range(const Range& r) : mLow(r.mLow), mHigh(r.mHigh) {} // Copy constructor
+
+	int mLow;
+	int mHigh;
+};
+
+//Random number functions
+int Random(Range r);
+
+int Random(int a, int b);
+
+// generic number functions
 int Largest( const int num1, const int num2 ); // will return num2 if both numbers are equal.
 int NumNonZeroDigits( const int num ); //returns number of non-zero digits in a number. Will return 0 if number is <= 0.
 
 int NumDigits( const int num );
+
+
+
 #endif

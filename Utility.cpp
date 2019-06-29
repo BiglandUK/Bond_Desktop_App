@@ -1,5 +1,7 @@
 #include "Utility.h"
 #include <cmath>
+#include <cstdlib>
+
 // PointF
 PointF::PointF()
 :   x_(0.0f), y_(0.0f)
@@ -140,7 +142,19 @@ bool PointInsideCircle( const PointF& clickPoint, const PointF& circleCentre, co
     return sqrtf( (side1 * side1) + (side2 * side2) ) <= radius;
 }
 
-// generic functions
+// Random number functions
+int Random(Range r)
+{
+	return r.mLow + rand() % ((r.mHigh + 1) - r.mLow);
+}
+
+// Returns a random number in [low, high].
+int Random(int low, int high)
+{
+	return low + rand() % ((high + 1) - low);
+}
+
+// generic number functions
 int Largest( const int num1, const int num2 ){
     return num1 > num2 ? num1 : num2;
 }

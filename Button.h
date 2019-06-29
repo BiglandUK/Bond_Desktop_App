@@ -58,18 +58,24 @@ public:
 };
 
 
-typedef std::vector<Button> ButtonList;
-
+using ButtonList = std::vector<Button>;
+// The ButtonConsole class is responsible for creating, managing and displaying the buttons.
+// Pre-game, it is passed information about the required buttons to generate each one from the game generator.
+// During the game, it tracks the selected buttons and passes back information to the game manager.
+// 
 class ButtonConsole{
 public:
-	ButtonConsole(Renderer& renderer, PointF position, float buttonWidth = 75.0f, float buttonHeight = 75.0f); // Setup buttons here
+	ButtonConsole(Renderer& renderer);
+
 	//~ButtonConsole();
+
+	void AddButton(int value, std::string text);
 
 	void Update(const PointF& mousePos);
     void Display();
 
-	void LMBClicked( const PointF& mousePos ); // mouse clicked
-	bool LMBReleased( const PointF& mousePos ); // mouse released  Returns true if button activated
+	void Click( const PointF& mousePos ); // mouse clicked
+	bool Release( const PointF& mousePos ); // mouse released  Returns true if button activated
 
 	/*Returns the id of the button that was last focussed by hover */
 	int GetChosenAction(); // Not const, as this clears ButtonID.

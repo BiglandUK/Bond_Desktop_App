@@ -149,12 +149,14 @@
   <ItemGroup>
     <ClCompile Include="BigSoftEd.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="GameCreator.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigSoftEd.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="GameCreator.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
