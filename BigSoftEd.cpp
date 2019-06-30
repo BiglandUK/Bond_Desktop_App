@@ -1,7 +1,7 @@
 // BigSoftEd.cpp
 #include "BigSoftEd.h"
 #include <vector>
-#include "Renderer.h"
+//#include "Renderer.h"
 /*
 	Class Colour - stores 4 ints for red, green, blue, alpha
 	Also defines
@@ -269,7 +269,7 @@ void BSE::DisplayGrid::PrintGrid( Renderer &renderer ) const{
 }
 
 void BSE::DisplayGrid::PrintGridInterior( Renderer &renderer )const{
-    renderer.DisplayFilledRectangle(BSE::EdGrey, Region());
+   // renderer.DisplayFilledRectangle(BSE::EdGrey, Region());
 }
 
 void BSE::DisplayGrid::PrintGridLines( Renderer &renderer) const{
@@ -279,12 +279,12 @@ void BSE::DisplayGrid::PrintGridLines( Renderer &renderer) const{
     float verticalLineLength = rowWidth_ * numRows_;
     PointF pos = position_;
     for( int i = 0; i < numHorizontalLines; ++i){
-        renderer.Display(BSE::Line(pos, PointF( pos.x_+ horizontalLineLength, pos.y_),1.0f ) );
+       // renderer.Display(BSE::Line(pos, PointF( pos.x_+ horizontalLineLength, pos.y_),1.0f ) );
         pos.y_ += rowWidth_;
     }
     pos = position_;
     for( int i = 0; i < numVerticalLines; ++i){
-        renderer.Display(BSE::Line(pos, PointF( pos.x_, pos.y_ + verticalLineLength),1.0f ) );
+       // renderer.Display(BSE::Line(pos, PointF( pos.x_, pos.y_ + verticalLineLength),1.0f ) );
         pos.x_ += colWidth_;
     }
 }

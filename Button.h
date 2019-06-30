@@ -65,7 +65,7 @@ using ButtonList = std::vector<Button>;
 // 
 class ButtonConsole{
 public:
-	ButtonConsole(Renderer& renderer);
+	ButtonConsole();
 
 	//~ButtonConsole();
 
@@ -80,17 +80,19 @@ public:
 	/*Returns the id of the button that was last focussed by hover */
 	int GetChosenAction(); // Not const, as this clears ButtonID.
 
+	void DisplayButtons();
+
 private:
-    Renderer& renderer_;
-    PointF position_; // position of first icon.
+    //Renderer& renderer_;
+    //PointF position_; // position of first icon.
 
-	int buttonID_; // current button that is hovered over.  a value less than 0 means no button
+	//int buttonID_; // current button that is hovered over.  a value less than 0 means no button
 
-	float buttonWidth_, buttonHeight_;
+	//float buttonWidth_, buttonHeight_;
 	ButtonList buttons_;
 	//PositionList btnPositions_;
 
-	sf::Texture buttonTexture_;
+	//sf::Texture buttonTexture_;
 };
 
 #endif // BUTTON_H

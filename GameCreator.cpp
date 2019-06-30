@@ -2,8 +2,7 @@
 #include "Button.h"
 #include "Utility.h"
 
-GameCreator::GameCreator(unsigned int target, unsigned int numButtons,
-	ButtonConsole& buttonConsole, bool herrings)
+GameCreator::GameCreator(unsigned int target, unsigned int numButtons, ButtonConsole& buttonConsole, bool herrings)
 	: mTarget(target), mNumButtons(numButtons), mButtonConsole(buttonConsole), mIncludeHerrings(herrings)
 {}
 
@@ -23,8 +22,9 @@ void GameCreator::GenerateValues() {
 	if(mIncludeHerrings)
 		numHerrings = DecideNumberHerrings();
 	int value = 1; // this is the value for the button to show correct pairs.
-	// for each button:
-	for (int i = 0; i < mNumButtons - numHerrings; ++i) {
+	// for each button
+	int limit = (mNumButtons - numHerrings) / 2;
+	for (int i = 0; i < limit; ++i) {
 		bool repeat = false;
 		int number = -1;
 		do { //get a unique number
@@ -36,7 +36,7 @@ void GameCreator::GenerateValues() {
 		mGameVector.emplace_back(mTarget - number);
 		// create two buttons and setup their values
 		mButtonConsole.AddButton(value, std::to_string(number));
-		mButtonConsole.AddButton(-value, std::to_string(number));
+		mButtonConsole.AddButton(-value, std::to_string(mTarget - number));
 		value++;
 	}
 	if (numHerrings > 0)
@@ -110,6 +110,6 @@ void GameCreator::Generate10() {
 		mGameVector.emplace_back(i);
 		mGameVector.emplace_back(10 - i);
 		mButtonConsole.AddButton(i, std::to_string(i));
-		mButtonConsole.AddButton(-i, std::to_string(i));
+		mButtonConsole.AddButton(-i, std::to_string(10-i));
 	}
 }
