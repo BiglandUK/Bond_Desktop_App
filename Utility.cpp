@@ -154,6 +154,10 @@ int Random(int low, int high)
 	return low + rand() % ((high + 1) - low);
 }
 
+bool PercentageChance(int percent) {
+	return Random(1, percent) <= percent;
+}
+
 // generic number functions
 int Largest( const int num1, const int num2 ){
     return num1 > num2 ? num1 : num2;

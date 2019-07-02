@@ -86,8 +86,8 @@ struct Range
 
 //Random number functions
 int Random(Range r);
-
 int Random(int a, int b);
+bool PercentageChance(int percent); // returns true if a random number is less or equal to the input %
 
 // generic number functions
 int Largest( const int num1, const int num2 ); // will return num2 if both numbers are equal.

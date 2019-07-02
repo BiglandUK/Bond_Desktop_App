@@ -18,6 +18,7 @@ public:
 	bool NumberExists(int value, std::vector<int>& vec);
 
 	void CreateRedHerrings(unsigned int);
+	int GenerateRandomHerring(); // returns herring value
 	void Generate10();
 
 private:

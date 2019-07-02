@@ -1,6 +1,7 @@
 #include "GameCreator.h"
 #include "Button.h"
 #include "Utility.h"
+#include <iostream>
 
 GameCreator::GameCreator(unsigned int target, unsigned int numButtons, ButtonConsole& buttonConsole, bool herrings)
 	: mTarget(target), mNumButtons(numButtons), mButtonConsole(buttonConsole), mIncludeHerrings(herrings)
@@ -49,7 +50,7 @@ unsigned int GameCreator::DecideNumberHerrings() {
 	// 12, 16  buttons - 0 or 2 herrings
 	// 20 - 0, 2 or 4 herrings
 	// 25 - 1, 3 or 5 herrings
-	return 1;
+	return 3;
 }
 
 int GameCreator::NumberBetween(int min, int max) {
@@ -70,30 +71,62 @@ bool GameCreator::NumberExists(int value, std::vector<int>& vec) {
 void GameCreator::CreateRedHerrings(unsigned int numHerrings) {
 	if (mTarget < 100) { // simply find a unique value
 		for (int i = 0; i < numHerrings; ++i) {
-			// Get a unique number
-			bool repeat = false; int number = -1;
-			do { //get a unique number
-				number = NumberBetween(1, mTarget);
-				repeat = NumberExists(number, mGameVector);
-			} while (repeat == true);
+			int number = GenerateRandomHerring();
 			// Add it to the checking vector
 			mGameVector.emplace_back(number);
 			mButtonConsole.AddButton(0, std::to_string(number));
 		}
 	}
 	else { // try something a little cleverer for larger values.
-		int number = RandomExistingNumber();
-		int plusminus10 = 10 * ((NumberBetween(0, 1) * 2) - 1);
-		if (NumberExists(number + plusminus10, mGameVector)) {
-			// try the opposite
-			if (NumberExists(number - plusminus10, mGameVector)) {
-				//now what??
+		for (int i = 0; i < numHerrings; ++i) {
+			bool success = false;
+			int failCount = 0;
+			do {
+				int number = RandomExistingNumber(); // pick a number already in the game
+				int plusminus10 = 10 * ((NumberBetween(0, 1) * 2) - 1); // choose to add or subtract 10 from it.	
+			
+				int herring = number + plusminus10;
 
+				if (herring < mTarget &&
+					herring > 0 &&
+					!NumberExists(herring, mGameVector)) {
+					mGameVector.push_back(herring);
+					mButtonConsole.AddButton(0, std::to_string(herring));
+					success = true;
+				} else {				
+					// try the opposite
+					herring = number - plusminus10;
+					if (herring < mTarget && herring > 0 &&
+						!NumberExists(herring, mGameVector)) {
+						mGameVector.push_back(herring);
+						mButtonConsole.AddButton(0, std::to_string(herring));
+						success = true;
+					}
+					else {
+						++failCount;
+					}
+
+				}
+			} while (success == false && failCount < 10);
+			if (success == false && failCount >= 10) {
+				int herring = GenerateRandomHerring();
+				mGameVector.push_back(herring);
+				mButtonConsole.AddButton(0, std::to_string(herring));
 			}
 
 		}
-
 	}
+}
+
+// Choose a herring simply via random number
+int GameCreator::GenerateRandomHerring() {
+	// Get a unique number
+	bool repeat = false; int number = -1;
+	do { //get a unique number
+		number = NumberBetween(1, mTarget);
+		repeat = NumberExists(number, mGameVector);
+	} while (repeat == true);
+	return number;
 }
 
 // Special case: only 9 numbers to choose, and only 10 possibilities.
